@@ -14,8 +14,19 @@ Output: False
 
 def has_duplicates(product_ids):
     # Your implementation here
-    pass
+    seen = set()
+    for ids in product_ids:
+        if ids in seen:
+            return True
+        seen.add(ids)
+    return False
 
+print(has_duplicates([10,20,30,40]))  # Output: False
+print(has_duplicates([10,20,30,20])) # Output: True
+
+# Justification: A set works best for detecting duplicates because it automatically stores
+# unique values. This operations that are used are efficient so this approach could be used 
+# for much larger lists.
 
 """
 Problem 2: Order Manager
@@ -33,15 +44,24 @@ task_queue.remove_oldest_task() → "Email follow-up"
 class TaskQueue:
     def __init__(self):
         # Your initialization here
-        pass
+        self.tasks = []
 
     def add_task(self, task):
-        pass
+        self.tasks.append(task)
 
     def remove_oldest_task(self):
-        pass
+        if len(self.tasks) == 0:
+            return None
+        return self.tasks.pop(0)
 
+task_queue = TaskQueue()
+task_queue.add_task("Email follow-up")
+task_queue.add_task("Code review")
+print(task_queue.remove_oldest_task())  # Output: "Email follow-up"
 
+# Justification: A list works for this problem because it naturally preserves the order in whcih tasks are added,
+# and allows for easy removal of the oldest tasks. By appending the new tasks to the end, the oldest tasks
+# are in the front so they will be removed first.
 """
 Problem 3: Unique Value Counter
 
@@ -57,10 +77,20 @@ tracker.get_unique_count() → 2
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        self.values = set()
 
     def add(self, value):
-        pass
+        self.values.add(value)
 
     def get_unique_count(self):
-        pass
+        return len(self.values)
+
+tracker = UniqueTracker()
+tracker.add(10)
+tracker.add(20)
+tracker.add(10)
+print(tracker.get_unique_count())  # Output: 2
+
+# Justification: A set is used here because it automatically handles uniqueness. 
+# When a value is added, if it already exists in the set, it will not be added again. 
+# This allows for efficient tracking of unique values and counting them.
